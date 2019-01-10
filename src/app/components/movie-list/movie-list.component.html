@@ -1,0 +1,43 @@
+<app-testing></app-testing>
+
+<div class="row justify-content-md-center">
+  <div *ngFor="let movie of movies" class="col-lg-3 col-md-6 col-sm-12 p-0">
+    <div class="card text-white bg-dark m-1">
+      <div class="card-header ">{{ movie.title }}</div>
+      <div class="card-body">
+        <p class="card-text">
+          <span class="text-primary">Year: </span>{{ movie.year }}
+        </p>
+        <p class="card-text">
+          <span class="text-primary">Runtime: </span>{{ movie.runtime }}
+        </p>
+        <p class="card-text">
+          <span class="text-primary">Jenre: </span>{{ movie.jenre }}
+        </p>
+        <p class="card-text">
+          <span class="text-primary">Director: </span>{{ movie.director }}
+        </p>
+      </div>
+      <div class="card-footer">
+        <button
+          type="button"
+          class="btn btn-outline-warning btn-block"
+          data-toggle="modal"
+          data-target="#movieModal"
+          (click)="
+            setModalInfo(
+              movie.title,
+              movie.year,
+              movie.runtime,
+              movie.jenre,
+              movie.director
+            )
+          "
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal></app-modal>

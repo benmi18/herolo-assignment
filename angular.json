@@ -135,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "herolo-assignment"
+  "defaultProject": "herolo-assignment",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

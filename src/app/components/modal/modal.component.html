@@ -1,0 +1,74 @@
+<div class="modal fade" id="movieModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalInfo.modalTitle }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Title</label>
+            <input
+              class="form-control"
+              value="{{ modalInfo.movieTitle }}"
+              type="text"
+              #title
+            />
+          </div>
+          <div class="form-group">
+            <label>Year</label>
+            <input
+              class="form-control"
+              type="number"
+              value="{{ modalInfo.movieYear }}"
+              #year
+            />
+          </div>
+          <div class="form-group">
+            <label>Runtime</label>
+            <input
+              class="form-control"
+              type="number"
+              value="{{ modalInfo.movieRuntime | toInt }}"
+              #runtime
+            />
+          </div>
+          <div class="form-group">
+            <label>Genre</label>
+            <input
+              class="form-control"
+              type="text"
+              value="{{ modalInfo.movieGenre }}"
+              #genre
+            />
+          </div>
+          <div class="form-group">
+            <label>Director</label>
+            <input
+              class="form-control"
+              type="text"
+              value="{{ modalInfo.movieDirector }}"
+              #director
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="handleClick()">
+          Save changes
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
