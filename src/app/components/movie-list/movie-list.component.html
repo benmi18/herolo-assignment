@@ -1,6 +1,6 @@
 <app-testing></app-testing>
 
-<div class="row justify-content-md-center">
+<div class="row justify-content-md-center mb-5">
   <div *ngFor="let movie of movies" class="col-lg-3 col-md-6 col-sm-12 p-0">
     <div class="card text-white bg-dark m-1">
       <div class="card-header ">{{ movie.title }}</div>
@@ -12,7 +12,7 @@
           <span class="text-primary">Runtime: </span>{{ movie.runtime }}
         </p>
         <p class="card-text">
-          <span class="text-primary">Jenre: </span>{{ movie.jenre }}
+          <span class="text-primary">Genre: </span>{{ movie.genre }}
         </p>
         <p class="card-text">
           <span class="text-primary">Director: </span>{{ movie.director }}
@@ -21,7 +21,7 @@
       <div class="card-footer">
         <button
           type="button"
-          class="btn btn-outline-warning btn-block"
+          class="btn btn-outline-warning "
           data-toggle="modal"
           data-target="#movieModal"
           (click)="
@@ -29,12 +29,19 @@
               movie.title,
               movie.year,
               movie.runtime,
-              movie.jenre,
+              movie.genre,
               movie.director
             )
           "
         >
           Edit
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger "
+          (click)="deleteMovie(movie.id)"
+        >
+          Delete
         </button>
       </div>
     </div>

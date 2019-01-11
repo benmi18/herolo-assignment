@@ -4,7 +4,8 @@ import { Movie } from '../../models/movie.model';
 
 export enum MovieActionTypes {
   LoadMovies = '[Movie] Load Movies',
-  AddMovie = '[Movie] Add Movie'
+  AddMovie = '[Movie] Add Movie',
+  RemoveMovie = '[Movie] Remove Movie'
 }
 
 export class LoadMovies implements Action {
@@ -16,4 +17,9 @@ export class AddMovie implements Action {
   constructor(public payload: Movie) {}
 }
 
-export type MovieActions = LoadMovies | AddMovie;
+export class RemoveMovie implements Action {
+  readonly type = MovieActionTypes.RemoveMovie;
+  constructor(public payload: string) {}
+}
+
+export type MovieActions = LoadMovies | AddMovie | RemoveMovie;

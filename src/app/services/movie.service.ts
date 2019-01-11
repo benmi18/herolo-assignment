@@ -1,31 +1,59 @@
+import { Movie } from './../models/movie.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from '../store/reducers';
+import * as movieActions from '../store/actions/movie.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
   omdbKey = 'd01a1bca';
-  movies = [
-    'Super 8',
-    'Super Size Me',
-    'My Super Ex-Girlfriend',
-    'Super Man',
-    'Blade Runner',
-    'The Maze Runner',
-    'Blade Runner 2049',
-    'Avengers: Infinity War',
-    'The Amazing Spider-Man'
-  ];
 
-  omdbUrl(key, title) {
-    return `http://www.omdbapi.com/?t=${title}$&apikey=${key}`;
+  constructor(private http: HttpClient, private store: Store<fromRoot.State>) {}
+
+  omdbUrl(key, type, query) {
+    return `http://www.omdbapi.com/?${type}=${query}&type=movie&apikey=${key}`;
   }
-  constructor(private http: HttpClient) {}
 
   getMovies() {
-    this.movies.forEach(title => {
-      return this.http.get(this.omdbUrl(this.omdbKey, title));
-    });
+    return this.http
+      .get(this.omdbUrl(this.omdbKey, 's', 'man'))
+      .subscribe((res: { Search: object[] }) => {
+        res.Search.forEach((movie: { Title: string }) => {
+          this.getMovie(movie.Title).subscribe(
+            (movie: {
+              imdbID: string;
+              Director: string;
+              Genre: string;
+              Runtime: string;
+              Title: string;
+              Year: string;
+            }) => {
+              const newMovie: Movie = {
+                id: movie.imdbID,
+                director: movie.Director,
+                genre: movie.Genre,
+                runtime: movie.Runtime,
+                title: movie.Title,
+                year: movie.Year
+              };
+              this.store.dispatch(new movieActions.AddMovie(newMovie));
+            },
+            error => console.log,
+            () => console.log('completed')
+          );
+        });
+      });
+  }
+
+  private getMovie(query) {
+    return this.http.get(this.omdbUrl(this.omdbKey, 't', query));
+  }
+
+  genRandomId() {
+    return (Math.random() * (1 - 9999) + 1).toString();
   }
 }

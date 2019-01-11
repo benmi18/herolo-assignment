@@ -1,0 +1,11 @@
+.card {
+  height: 350px;
+}
+
+.btn {
+  width: 47%;
+
+  &:nth-child(1) {
+    margin-right: 3%;
+  }
+}

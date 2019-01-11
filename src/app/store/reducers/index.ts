@@ -25,6 +25,10 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
 
 // Movie Selectors
 export const selectMovieState = createFeatureSelector<Movie.State>('movie');
+export const getMovies = createSelector(
+  selectMovieState,
+  Movie.getMovies
+);
 
 // Modal Selectors
 export const selectModalState = createFeatureSelector<Modal.State>('modal');

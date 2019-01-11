@@ -11,6 +11,7 @@ export interface State {
 export const initialState: State = {
   modalInfo: {
     modalTitle: null,
+    isNewMovie: false,
     movieDirector: null,
     movieGenre: null,
     movieRuntime: null,

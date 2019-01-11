@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Modal } from '../../models/modal.model';
-import * as fromRoot from '../../store/reducers';
 import { Store } from '@ngrx/store';
+
+import { MovieService } from './../../services/movie.service';
+import { Movie } from './../../models/movie.model';
+import { Modal } from '../../models/modal.model';
+import { ToRuntimeStringPipe } from '../../pipes/to-runtime-string.pipe';
+import * as fromRoot from '../../store/reducers';
+import * as movieActions from '../../store/actions/movie.actions';
 
 @Component({
   selector: 'app-modal',
@@ -11,7 +16,11 @@ import { Store } from '@ngrx/store';
 export class ModalComponent implements OnInit {
   modalInfo: Modal;
 
-  constructor(private store: Store<fromRoot.State>) {}
+  constructor(
+    private store: Store<fromRoot.State>,
+    private movieService: MovieService
+  ) // private toRuntimeString: ToRuntimeStringPipe
+  {}
 
   ngOnInit() {
     this.store
@@ -19,7 +28,18 @@ export class ModalComponent implements OnInit {
       .subscribe(info => (this.modalInfo = info));
   }
 
-  handleClick() {
-    console.log(this.modalInfo);
+  handleSave(title, year, runtime, genre, director) {
+    // runtime = this.toRuntimeString.transform(runtime);
+    const movie: Movie = {
+      id: this.movieService.genRandomId(),
+      title,
+      year,
+      runtime,
+      genre,
+      director
+    };
+    if (this.modalInfo.isNewMovie) {
+      this.store.dispatch(new movieActions.AddMovie(movie));
+    }
   }
 }

@@ -16,6 +16,7 @@ export class AddMovieComponent implements OnInit {
   constructor(private store: Store<fromRoot.State>) {
     this.modalInfo = {
       modalTitle: 'Add New Movie',
+      isNewMovie: true,
       movieDirector: null,
       movieGenre: null,
       movieRuntime: 0,
