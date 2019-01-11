@@ -1,6 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -11,17 +17,11 @@ import { MovieListComponent } from './components/movie-list/movie-list.component
 import { AddMovieComponent } from './components/add-movie/add-movie.component';
 import { EditMovieComponent } from './components/edit-movie/edit-movie.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './store/reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
-import { EffectEffects } from './store/effects/effect.effects';
 import { TestingComponent } from './components/testing/testing.component';
+import { reducers, metaReducers } from './store/reducers';
 import { ToIntPipe } from './pipes/to-int.pipe';
 import { ToRuntimeStringPipe } from './pipes/to-runtime-string.pipe';
-import { HttpClientModule } from '@angular/common/http';
-import { MovieEffects } from './store/effects/movie.effects';
+import { TitlePipe } from './pipes/title.pipe';
 
 @NgModule({
   declarations: [
@@ -36,14 +36,15 @@ import { MovieEffects } from './store/effects/movie.effects';
     ModalComponent,
     TestingComponent,
     ToIntPipe,
-    ToRuntimeStringPipe
+    ToRuntimeStringPipe,
+    TitlePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([EffectEffects, MovieEffects]),
     HttpClientModule
   ],
   providers: [],

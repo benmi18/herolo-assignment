@@ -24,6 +24,7 @@ export class MovieService {
       .subscribe((res: { Search: object[] }) => {
         res.Search.forEach((movie: { Title: string }) => {
           this.getMovie(movie.Title).subscribe(
+            // tslint:disable-next-line:no-shadowed-variable
             (movie: {
               imdbID: string;
               Director: string;

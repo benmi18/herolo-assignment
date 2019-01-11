@@ -15,11 +15,12 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label>Title</label>
+            <label>Title </label>
             <input
               class="form-control"
               value="{{ modalInfo.movieTitle }}"
               type="text"
+              required
               #title
             />
           </div>
@@ -29,6 +30,7 @@
               class="form-control"
               type="number"
               value="{{ modalInfo.movieYear }}"
+              required
               #year
             />
           </div>
@@ -38,6 +40,7 @@
               class="form-control"
               type="number"
               value="{{ modalInfo.movieRuntime | toInt }}"
+              required
               #runtime
             />
           </div>
@@ -47,6 +50,7 @@
               class="form-control"
               type="text"
               value="{{ modalInfo.movieGenre }}"
+              required
               #genre
             />
           </div>
@@ -56,6 +60,7 @@
               class="form-control"
               type="text"
               value="{{ modalInfo.movieDirector }}"
+              required
               #director
             />
           </div>

@@ -18,9 +18,8 @@ export class ModalComponent implements OnInit {
 
   constructor(
     private store: Store<fromRoot.State>,
-    private movieService: MovieService
-  ) // private toRuntimeString: ToRuntimeStringPipe
-  {}
+    private movieService: MovieService // private toRuntimeString: ToRuntimeStringPipe
+  ) {}
 
   ngOnInit() {
     this.store
