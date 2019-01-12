@@ -13,78 +13,113 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form
+          [formGroup]="form"
+          (ngSubmit)="onSubmit(); form.reset(); log(form)"
+        >
           <div class="form-group">
-            <label>Title </label>
+            <label for="title">Title</label>
             <input
+              formControlName="title"
+              id="title"
               class="form-control"
-              value="{{ modalInfo.movieTitle }}"
               type="text"
-              required
-              #title
             />
+            <div
+              *ngIf="title.invalid && (formSubmited || title.touched)"
+              class="input-alert"
+            >
+              <div *ngIf="title.errors.required">Title Is Required</div>
+              <div *ngIf="title.errors.minlength">Title must bew min 2 chr</div>
+            </div>
           </div>
           <div class="form-group">
-            <label>Year</label>
+            <label for="year">Year</label>
             <input
+              formControlName="year"
+              id="year"
               class="form-control"
               type="number"
-              value="{{ modalInfo.movieYear }}"
-              required
-              #year
             />
+            <div
+              *ngIf="year.invalid && (formSubmited || year.touched)"
+              class="input-alert"
+            >
+              <div *ngIf="year.errors.required">Year Is Required</div>
+              <div *ngIf="year.errors.min">Please Enter Valid Year</div>
+            </div>
           </div>
           <div class="form-group">
-            <label>Runtime</label>
+            <label for="runtime">Runtime</label>
             <input
+              formControlName="runtime"
+              id="runtime"
               class="form-control"
               type="number"
-              value="{{ modalInfo.movieRuntime | toInt }}"
-              required
-              #runtime
             />
+            <div
+              *ngIf="runtime.invalid && (formSubmited || runtime.touched)"
+              class="input-alert"
+            >
+              <div *ngIf="runtime.errors.required">
+                Runtime Value Is Required
+              </div>
+              <div *ngIf="runtime.errors.min">
+                Please Enter Valid Runtime Value
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <label>Genre</label>
+            <label for="genre">Genre</label>
             <input
+              formControlName="genre"
+              id="genre"
               class="form-control"
               type="text"
-              value="{{ modalInfo.movieGenre }}"
-              required
-              #genre
             />
+            <div
+              *ngIf="genre.invalid && (formSubmited || genre.touched)"
+              class="input-alert"
+            >
+              <div *ngIf="genre.errors.required">
+                Please Enter At List One Genre Type
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <label>Director</label>
+            <label for="director">Director</label>
             <input
+              formControlName="director"
+              id="director"
               class="form-control"
               type="text"
-              value="{{ modalInfo.movieDirector }}"
-              required
-              #director
             />
+            <div
+              *ngIf="director.invalid && (formSubmited || director.touched)"
+              class="input-alert"
+            >
+              <div *ngIf="director.errors.required">
+                Director Name Is Required
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              [disabled]="!form.valid"
+              type="submit"
+              class="btn btn-success"
+            >
+              Submit
+            </button>
+            <button
+              type="submit"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
           </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="
-            handleSave(
-              title.value,
-              year.value,
-              runtime.value,
-              genre.value,
-              director.value
-            )
-          "
-        >
-          Save changes
-        </button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
       </div>
     </div>
   </div>

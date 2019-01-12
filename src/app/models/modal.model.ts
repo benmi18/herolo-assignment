@@ -3,7 +3,11 @@ export interface Modal {
   modalTitle: string;
   movieTitle: string;
   movieYear: string;
-  movieRuntime: number;
+  movieRuntime: any;
   movieGenre: string;
   movieDirector: string;
+  minYear?: number;
+  minYearErr?: boolean;
+  minRunTime?: number;
+  minRuntimeErr?: boolean;
 }

@@ -13,10 +13,14 @@ export const initialState: State = {
     modalTitle: null,
     isNewMovie: false,
     movieDirector: null,
-    movieGenre: null,
+    movieGenre: 'abc',
     movieRuntime: null,
     movieTitle: null,
-    movieYear: null
+    movieYear: null,
+    minYear: 1900,
+    minYearErr: false,
+    minRunTime: 0,
+    minRuntimeErr: false
   }
 };
 

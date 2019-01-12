@@ -43,8 +43,7 @@ export class MovieService {
               };
               this.store.dispatch(new movieActions.AddMovie(newMovie));
             },
-            error => console.log,
-            () => console.log('completed')
+            error => console.log
           );
         });
       });
