@@ -25,11 +25,23 @@ export function reducer(
         ...state,
         movieList: [...state.movieList, action.payload]
       };
+    case movieActions.MovieActionTypes.EditMovie:
+      const newMovieList = [...state.movieList];
+      for (let i = 0; i < newMovieList.length; i++) {
+        if (newMovieList[i].id === action.payload.id) {
+          newMovieList[i] = action.payload.movie;
+          break;
+        }
+      }
+      return {
+        ...state,
+        movieList: newMovieList
+      };
+
     case movieActions.MovieActionTypes.RemoveMovie:
       const movieArr = [...state.movieList];
       movieArr.forEach((movie: Movie, index: number) => {
         if (movie.id === action.payload) {
-          console.log('CASE Remove Movie');
           movieArr.splice(index, 1);
         }
       });

@@ -29,7 +29,7 @@ export class MovieService {
               imdbID: string;
               Director: string;
               Genre: string;
-              Runtime: string;
+              Runtime: number;
               Title: string;
               Year: string;
             }) => {
@@ -42,8 +42,7 @@ export class MovieService {
                 year: movie.Year
               };
               this.store.dispatch(new movieActions.AddMovie(newMovie));
-            },
-            error => console.log
+            }
           );
         });
       });

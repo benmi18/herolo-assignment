@@ -6,18 +6,15 @@
         <button
           type="button"
           class="close"
-          data-dismiss="modal"
+          (click)="closeModal()"
           aria-label="Close"
         >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form
-          [formGroup]="form"
-          (ngSubmit)="onSubmit(); form.reset(); log(form)"
-        >
-          <div class="form-group">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-group " id="title-group">
             <label for="title">Title</label>
             <input
               formControlName="title"
@@ -30,7 +27,8 @@
               class="input-alert"
             >
               <div *ngIf="title.errors.required">Title Is Required</div>
-              <div *ngIf="title.errors.minlength">Title must bew min 2 chr</div>
+              <div *ngIf="title.errors.minlength">Title must be min 2 chr</div>
+              <div *ngIf="title.errors.title">Title already exists</div>
             </div>
           </div>
           <div class="form-group">
@@ -41,10 +39,7 @@
               class="form-control"
               type="number"
             />
-            <div
-              *ngIf="year.invalid && (formSubmited || year.touched)"
-              class="input-alert"
-            >
+            <div *ngIf="year.invalid && formSubmited" class="input-alert">
               <div *ngIf="year.errors.required">Year Is Required</div>
               <div *ngIf="year.errors.min">Please Enter Valid Year</div>
             </div>
@@ -57,10 +52,7 @@
               class="form-control"
               type="number"
             />
-            <div
-              *ngIf="runtime.invalid && (formSubmited || runtime.touched)"
-              class="input-alert"
-            >
+            <div *ngIf="runtime.invalid && formSubmited" class="input-alert">
               <div *ngIf="runtime.errors.required">
                 Runtime Value Is Required
               </div>
@@ -77,10 +69,7 @@
               class="form-control"
               type="text"
             />
-            <div
-              *ngIf="genre.invalid && (formSubmited || genre.touched)"
-              class="input-alert"
-            >
+            <div *ngIf="genre.invalid && formSubmited" class="input-alert">
               <div *ngIf="genre.errors.required">
                 Please Enter At List One Genre Type
               </div>
@@ -94,10 +83,7 @@
               class="form-control"
               type="text"
             />
-            <div
-              *ngIf="director.invalid && (formSubmited || director.touched)"
-              class="input-alert"
-            >
+            <div *ngIf="director.invalid && formSubmited" class="input-alert">
               <div *ngIf="director.errors.required">
                 Director Name Is Required
               </div>
@@ -112,12 +98,18 @@
               Submit
             </button>
             <button
-              type="submit"
+              type="button"
               class="btn btn-secondary"
-              data-dismiss="modal"
+              (click)="closeModal()"
             >
               Close
             </button>
+            <button
+              id="close-modal"
+              type="button"
+              class="close"
+              data-dismiss="modal"
+            ></button>
           </div>
         </form>
       </div>

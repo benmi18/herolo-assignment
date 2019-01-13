@@ -7,6 +7,7 @@ import * as fromRoot from '../../store/reducers';
 import * as movieActions from 'src/app/store/actions/movie.actions';
 import * as ModalActions from '../../store/actions/modal.actions';
 import { MovieService } from 'src/app/services/movie.service';
+import { ToIntPipe } from '../../pipes/to-int.pipe';
 
 @Component({
   selector: 'app-movie-list',
@@ -15,16 +16,19 @@ import { MovieService } from 'src/app/services/movie.service';
 })
 export class MovieListComponent implements OnInit {
   movies: Movie[];
+  runtimeInt = new ToIntPipe();
 
   constructor(
     private store: Store<fromRoot.State>,
     private movieService: MovieService
   ) {}
 
-  setModalInfo(title, year, runtime, genre, director) {
+  setModalInfo(title, year, runtime, genre, director, id) {
+    runtime = this.runtimeInt.transform(runtime);
     const modalInfo: Modal = {
       modalTitle: 'Edit Movie',
       isNewMovie: false,
+      movieId: id,
       movieTitle: title,
       movieYear: year,
       movieRuntime: runtime,

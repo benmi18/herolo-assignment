@@ -1,9 +1,10 @@
 export interface Modal {
-  isNewMovie: boolean;
-  modalTitle: string;
+  isNewMovie?: boolean;
+  modalTitle?: string;
+  movieId?: string;
   movieTitle: string;
   movieYear: string;
-  movieRuntime: any;
+  movieRuntime: number;
   movieGenre: string;
   movieDirector: string;
   minYear?: number;

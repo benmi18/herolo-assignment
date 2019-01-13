@@ -3,7 +3,9 @@
 <div class="row justify-content-md-center mb-5">
   <div *ngFor="let movie of movies" class="col-lg-3 col-md-6 col-sm-12 p-0">
     <div class="card text-white bg-dark m-1">
-      <div class="card-header ">{{ movie.title }}</div>
+      <div class="card-header ">
+        {{ movie.title | titleStringify | titlecase }}
+      </div>
       <div class="card-body">
         <p class="card-text">
           <span class="text-primary">Year: </span>{{ movie.year }}
@@ -19,6 +21,7 @@
         </p>
       </div>
       <div class="card-footer">
+        <!-- <app-movie-form-modal></app-movie-form-modal> -->
         <button
           type="button"
           class="btn btn-outline-warning "
@@ -30,17 +33,14 @@
               movie.year,
               movie.runtime,
               movie.genre,
-              movie.director
+              movie.director,
+              movie.id
             )
           "
         >
           Edit
         </button>
-        <button
-          type="button"
-          class="btn btn-outline-danger "
-          (click)="deleteMovie(movie.id)"
-        >
+        <button class="btn btn-outline-danger " (click)="deleteMovie(movie.id)">
           Delete
         </button>
       </div>

@@ -19,7 +19,7 @@ export class AddMovieComponent implements OnInit {
       isNewMovie: true,
       movieDirector: null,
       movieGenre: null,
-      movieRuntime: 0,
+      movieRuntime: null,
       movieTitle: null,
       movieYear: null
     };

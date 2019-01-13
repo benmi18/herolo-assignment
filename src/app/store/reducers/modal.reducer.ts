@@ -13,7 +13,7 @@ export const initialState: State = {
     modalTitle: null,
     isNewMovie: false,
     movieDirector: null,
-    movieGenre: 'abc',
+    movieGenre: null,
     movieRuntime: null,
     movieTitle: null,
     movieYear: null,

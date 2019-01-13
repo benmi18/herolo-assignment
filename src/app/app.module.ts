@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -22,6 +23,8 @@ import { reducers, metaReducers } from './store/reducers';
 import { ToIntPipe } from './pipes/to-int.pipe';
 import { ToRuntimeStringPipe } from './pipes/to-runtime-string.pipe';
 import { TitlePipe } from './pipes/title.pipe';
+import { MovieFormModalComponent } from './components/movie-form-modal/movie-form-modal.component';
+import { TitleStringifyPipe } from './pipes/title-stringify.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { TitlePipe } from './pipes/title.pipe';
     TestingComponent,
     ToIntPipe,
     ToRuntimeStringPipe,
-    TitlePipe
+    TitlePipe,
+    MovieFormModalComponent,
+    TitleStringifyPipe
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,8 @@ import { TitlePipe } from './pipes/title.pipe';
     ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
