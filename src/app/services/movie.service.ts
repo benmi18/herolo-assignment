@@ -29,7 +29,7 @@ export class MovieService {
               imdbID: string;
               Director: string;
               Genre: string;
-              Runtime: number;
+              Runtime: string;
               Title: string;
               Year: string;
             }) => {

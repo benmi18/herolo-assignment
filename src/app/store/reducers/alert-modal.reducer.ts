@@ -9,7 +9,10 @@ export const initialState: State = {
 };
 
 // Selectors
-export const getmovieIdToDelete = (state: State) => state.movieIdToDelete;
+export const getmovieIdToDelete = (state: State) => {
+  return state.movieIdToDelete;
+};
+// export const getmovieIdToDelete = (state: State) => state;
 
 export function reducer(
   state = initialState,

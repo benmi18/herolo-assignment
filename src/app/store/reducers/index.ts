@@ -13,11 +13,13 @@ import * as AlertModal from '../reducers/alert-modal.reducer';
 export interface State {
   movie: Movie.State;
   modal: Modal.State;
+  alertModal: AlertModal.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
   movie: Movie.reducer,
-  modal: Modal.reducer
+  modal: Modal.reducer,
+  alertModal: AlertModal.reducer
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
