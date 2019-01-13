@@ -25,6 +25,7 @@ import { ToRuntimeStringPipe } from './pipes/to-runtime-string.pipe';
 import { TitlePipe } from './pipes/title.pipe';
 import { MovieFormModalComponent } from './components/movie-form-modal/movie-form-modal.component';
 import { TitleStringifyPipe } from './pipes/title-stringify.pipe';
+import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { TitleStringifyPipe } from './pipes/title-stringify.pipe';
     ToRuntimeStringPipe,
     TitlePipe,
     MovieFormModalComponent,
-    TitleStringifyPipe
+    TitleStringifyPipe,
+    AlertModalComponent
   ],
   imports: [
     BrowserModule,

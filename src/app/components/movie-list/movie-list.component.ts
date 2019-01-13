@@ -4,10 +4,11 @@ import { Store } from '@ngrx/store';
 import { Movie } from './../../models/movie.model';
 import { Modal } from 'src/app/models/modal.model';
 import * as fromRoot from '../../store/reducers';
-import * as movieActions from 'src/app/store/actions/movie.actions';
-import * as ModalActions from '../../store/actions/modal.actions';
+import * as modalActions from '../../store/actions/modal.actions';
+import * as alertModalActions from '../../store/actions/alert-modal.actions';
 import { MovieService } from 'src/app/services/movie.service';
 import { ToIntPipe } from '../../pipes/to-int.pipe';
+import { TitleStringifyPipe } from '../../pipes/title-stringify.pipe';
 
 @Component({
   selector: 'app-movie-list',
@@ -17,6 +18,7 @@ import { ToIntPipe } from '../../pipes/to-int.pipe';
 export class MovieListComponent implements OnInit {
   movies: Movie[];
   runtimeInt = new ToIntPipe();
+  removeSpecialChars = new TitleStringifyPipe();
 
   constructor(
     private store: Store<fromRoot.State>,
@@ -25,6 +27,7 @@ export class MovieListComponent implements OnInit {
 
   setModalInfo(title, year, runtime, genre, director, id) {
     runtime = this.runtimeInt.transform(runtime);
+    title = this.removeSpecialChars.transform(title);
     const modalInfo: Modal = {
       modalTitle: 'Edit Movie',
       isNewMovie: false,
@@ -35,11 +38,11 @@ export class MovieListComponent implements OnInit {
       movieGenre: genre,
       movieDirector: director
     };
-    this.store.dispatch(new ModalActions.SetModalInfo(modalInfo));
+    this.store.dispatch(new modalActions.SetModalInfo(modalInfo));
   }
 
   deleteMovie(id) {
-    this.store.dispatch(new movieActions.RemoveMovie(id));
+    this.store.dispatch(new alertModalActions.SetMovieIdToDelete(id));
   }
 
   ngOnInit() {

@@ -21,7 +21,6 @@
         </p>
       </div>
       <div class="card-footer">
-        <!-- <app-movie-form-modal></app-movie-form-modal> -->
         <button
           type="button"
           class="btn btn-outline-warning "
@@ -40,7 +39,12 @@
         >
           Edit
         </button>
-        <button class="btn btn-outline-danger " (click)="deleteMovie(movie.id)">
+        <button
+          class="btn btn-outline-danger"
+          data-toggle="modal"
+          data-target="#alertModal"
+          (click)="deleteMovie(movie.id)"
+        >
           Delete
         </button>
       </div>
@@ -48,3 +52,4 @@
   </div>
 </div>
 <app-modal></app-modal>
+<app-alert-modal></app-alert-modal>

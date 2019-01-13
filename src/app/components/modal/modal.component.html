@@ -39,9 +39,14 @@
               class="form-control"
               type="number"
             />
-            <div *ngIf="year.invalid && formSubmited" class="input-alert">
+            <div
+              *ngIf="year.invalid && (formSubmited || year.touched)"
+              class="input-alert"
+            >
               <div *ngIf="year.errors.required">Year Is Required</div>
-              <div *ngIf="year.errors.min">Please Enter Valid Year</div>
+              <div *ngIf="year.errors.min || year.errors.max">
+                Please Enter Valid Year
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -52,7 +57,10 @@
               class="form-control"
               type="number"
             />
-            <div *ngIf="runtime.invalid && formSubmited" class="input-alert">
+            <div
+              *ngIf="runtime.invalid && (formSubmited || runtime.touched)"
+              class="input-alert"
+            >
               <div *ngIf="runtime.errors.required">
                 Runtime Value Is Required
               </div>
@@ -69,7 +77,10 @@
               class="form-control"
               type="text"
             />
-            <div *ngIf="genre.invalid && formSubmited" class="input-alert">
+            <div
+              *ngIf="genre.invalid && (formSubmited || genre.touched)"
+              class="input-alert"
+            >
               <div *ngIf="genre.errors.required">
                 Please Enter At List One Genre Type
               </div>
@@ -83,7 +94,10 @@
               class="form-control"
               type="text"
             />
-            <div *ngIf="director.invalid && formSubmited" class="input-alert">
+            <div
+              *ngIf="director.invalid && (formSubmited || director.touched)"
+              class="input-alert"
+            >
               <div *ngIf="director.errors.required">
                 Director Name Is Required
               </div>

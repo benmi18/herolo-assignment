@@ -20,7 +20,7 @@ export class MovieService {
 
   getMovies() {
     return this.http
-      .get(this.omdbUrl(this.omdbKey, 's', 'man'))
+      .get(this.omdbUrl(this.omdbKey, 's', 'boy'))
       .subscribe((res: { Search: object[] }) => {
         res.Search.forEach((movie: { Title: string }) => {
           this.getMovie(movie.Title).subscribe(

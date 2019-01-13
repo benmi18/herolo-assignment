@@ -22,9 +22,9 @@ export class ModalComponent implements OnInit {
   form: FormGroup;
   formSubmited: boolean;
   titles: string[];
-  runtimeString = new ToRuntimeStringPipe();
-  runtimeInt = new ToIntPipe();
-  removeSpecialCharacters = new TitleStringifyPipe();
+  // private runtimeString = new ToRuntimeStringPipe();
+  // private runtimeInt = new ToIntPipe();
+  private removeSpecialChars = new TitleStringifyPipe();
 
   constructor(
     private store: Store<fromRoot.State>,
@@ -40,13 +40,15 @@ export class ModalComponent implements OnInit {
     this.store.select(fromRoot.getModalInfo).subscribe(info => {
       this.modalInfo = info;
       this.form = new FormGroup({
+        // Form Group And Controls
         title: new FormControl(info.movieTitle, [
           Validators.required,
           Validators.minLength(2)
         ]),
         year: new FormControl(info.movieYear, [
           Validators.required,
-          Validators.min(1900)
+          Validators.min(1900),
+          Validators.max(2025)
         ]),
         runtime: new FormControl(info.movieRuntime, [
           Validators.required,
@@ -86,30 +88,29 @@ export class ModalComponent implements OnInit {
 
   onSubmit() {
     this.formSubmited = true;
-    console.log('Form Submited');
     if (this.form.invalid) {
       return;
     }
 
     if (this.modalInfo.isNewMovie) {
-      // const cleanTitle = this.removeSpecialCharacters.transform(
-      //   this.title.value
-      // );
-      const cleanTitle = this.title.value;
+      // ADD NEW MOVIE
+      const cleanTitle = this.removeSpecialChars.transform(this.title.value);
       const formData = this.form.value;
       formData.title = cleanTitle;
       this.titles.forEach(title => {
+        // Check if title exits
         if (title.toLocaleLowerCase() === cleanTitle.toLocaleLowerCase()) {
-          console.log('title error');
-          this.title.setErrors({ title: true });
+          this.title.setErrors({ title: true }); // Set Title error
         }
       });
       if (!this.title.errors) {
+        // If no title error, Dispatch new movie action
         formData.id = this.movieService.genRandomId();
         this.store.dispatch(new movieActions.AddMovie(formData));
         this.closeModal();
       }
     } else {
+      // EDIT MOVIE
       const updatedMovie: Movie = {
         id: this.modalInfo.movieId,
         title: this.title.value,
@@ -129,6 +130,7 @@ export class ModalComponent implements OnInit {
   }
 
   closeModal() {
+    console.log(this.form);
     this.formSubmited = false;
     document.getElementById('close-modal').click();
     this.modalService.resetModalInfo();
