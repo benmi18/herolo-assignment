@@ -22,10 +22,6 @@ export class ModalComponent implements OnInit {
   formSubmited: boolean;
   moviesTitleAndId: { id: string; title: string }[];
   private runtimeString = new ToRuntimeStringPipe();
-<<<<<<< HEAD
-=======
-  private runtimeInt = new ToIntPipe();
->>>>>>> 6eb0e25e0d122bc2cd8b8a70f5a76858e2375be3
   private removeSpecialChars = new TitleStringifyPipe();
 
   constructor(
@@ -101,11 +97,7 @@ export class ModalComponent implements OnInit {
       const formData = this.form.value;
       formData.title = cleanTitle;
       formData.runtime = runtimeString;
-<<<<<<< HEAD
       this.checkTitleExists(cleanTitle, this.modalInfo.isNewMovie);
-=======
-      this.checkTitleExists(cleanTitle, true);
->>>>>>> 6eb0e25e0d122bc2cd8b8a70f5a76858e2375be3
       if (!this.title.errors) {
         // If no title error, Dispatch new movie action
         formData.id = this.movieService.genRandomId();
@@ -115,15 +107,12 @@ export class ModalComponent implements OnInit {
     } else {
       // EDIT MOVIE
       // Check if title exits
-<<<<<<< HEAD
       this.checkTitleExists(
         this.title.value,
         this.modalInfo.isNewMovie,
         this.modalInfo.movieId
       );
-=======
-      this.checkTitleExists(this.title.value, false, this.modalInfo.movieId);
->>>>>>> 6eb0e25e0d122bc2cd8b8a70f5a76858e2375be3
+
       if (!this.title.errors) {
         const runtimeString = this.runtimeString.transform(this.runtime.value);
         const updatedMovie: Movie = {
@@ -153,21 +142,12 @@ export class ModalComponent implements OnInit {
       ) {
         if (isNewMovie) {
           this.title.setErrors({ title: true });
-<<<<<<< HEAD
           break;
         }
 
         if (this.moviesTitleAndId[i].id !== id) {
           this.title.setErrors({ title: true });
-=======
-          return;
-        }
 
-        if (this.moviesTitleAndId[i].id !== id) {
-          console.log(this.moviesTitleAndId[i].id, id);
-          this.title.setErrors({ title: true });
-          console.log(this.title);
->>>>>>> 6eb0e25e0d122bc2cd8b8a70f5a76858e2375be3
           break;
         }
       }
