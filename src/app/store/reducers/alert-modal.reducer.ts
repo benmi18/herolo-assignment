@@ -12,6 +12,10 @@ export const initialState: State = {
 export const getmovieIdToDelete = (state: State) => {
   return state.movieIdToDelete;
 };
+<<<<<<< HEAD
+=======
+// export const getmovieIdToDelete = (state: State) => state;
+>>>>>>> 6eb0e25e0d122bc2cd8b8a70f5a76858e2375be3
 
 export function reducer(
   state = initialState,
