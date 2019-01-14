@@ -16,7 +16,7 @@ export class MovieService {
   constructor(private http: HttpClient, private store: Store<fromRoot.State>) {}
 
   omdbUrl(key, type, query) {
-    return `http://www.omdbapi.com/?${type}=${query}&type=movie&apikey=${key}`;
+    return `https://www.omdbapi.com/?${type}=${query}&type=movie&apikey=${key}`;
   }
 
   getMovies() {
