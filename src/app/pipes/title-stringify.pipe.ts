@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TitleStringifyPipe implements PipeTransform {
   transform(value: string): string {
-    value = value.replace(/[!@#$%^&*_(),+=.?":{}|<>]/g, '');
+    value = value.replace(/[!@#$%^&*_(),~+=.?":{}|<>]/g, '');
     return value;
   }
 }

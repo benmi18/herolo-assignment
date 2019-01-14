@@ -5,7 +5,6 @@ import { Movie } from './../../models/movie.model';
 import { Modal } from 'src/app/models/modal.model';
 import * as fromRoot from '../../store/reducers';
 import * as modalActions from '../../store/actions/modal.actions';
-import * as alertModalActions from '../../store/actions/alert-modal.actions';
 import { MovieService } from 'src/app/services/movie.service';
 import { ToIntPipe } from '../../pipes/to-int.pipe';
 import { TitleStringifyPipe } from '../../pipes/title-stringify.pipe';
@@ -42,7 +41,7 @@ export class MovieListComponent implements OnInit {
   }
 
   deleteMovie(id) {
-    this.store.dispatch(new alertModalActions.SetMovieIdToDelete(id));
+    this.movieService.deleteMovie(id);
   }
 
   ngOnInit() {

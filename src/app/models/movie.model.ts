@@ -2,7 +2,7 @@ export interface Movie {
   id: string;
   title: string;
   year: string;
-  runtime: number;
+  runtime: string;
   genre: string;
   director: string;
 }

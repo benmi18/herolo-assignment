@@ -21,5 +21,10 @@ export class AlertModalComponent implements OnInit {
 
   deleteMovie() {
     this.store.dispatch(new movieActions.RemoveMovie(this.movieIdToDelete));
+    this.closeAlert();
+  }
+
+  closeAlert() {
+    document.getElementById('close-alert').click();
   }
 }

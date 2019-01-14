@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../store/reducers';
 import * as movieActions from '../store/actions/movie.actions';
+import * as alertModalActions from '../store/actions/alert-modal.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,11 @@ export class MovieService {
       .subscribe((res: { Search: object[] }) => {
         res.Search.forEach((movie: { Title: string }) => {
           this.getMovie(movie.Title).subscribe(
-            // tslint:disable-next-line:no-shadowed-variable
             (movie: {
               imdbID: string;
               Director: string;
               Genre: string;
-              Runtime: number;
+              Runtime: string;
               Title: string;
               Year: string;
             }) => {
@@ -50,6 +50,10 @@ export class MovieService {
 
   private getMovie(query) {
     return this.http.get(this.omdbUrl(this.omdbKey, 't', query));
+  }
+
+  deleteMovie(id) {
+    this.store.dispatch(new alertModalActions.SetMovieIdToDelete(id));
   }
 
   genRandomId() {

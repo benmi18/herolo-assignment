@@ -16,14 +16,11 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { AddMovieComponent } from './components/add-movie/add-movie.component';
-import { EditMovieComponent } from './components/edit-movie/edit-movie.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { TestingComponent } from './components/testing/testing.component';
 import { reducers, metaReducers } from './store/reducers';
 import { ToIntPipe } from './pipes/to-int.pipe';
 import { ToRuntimeStringPipe } from './pipes/to-runtime-string.pipe';
 import { TitlePipe } from './pipes/title.pipe';
-import { MovieFormModalComponent } from './components/movie-form-modal/movie-form-modal.component';
 import { TitleStringifyPipe } from './pipes/title-stringify.pipe';
 import { AlertModalComponent } from './components/alert-modal/alert-modal.component';
 
@@ -36,13 +33,10 @@ import { AlertModalComponent } from './components/alert-modal/alert-modal.compon
     FooterComponent,
     MovieListComponent,
     AddMovieComponent,
-    EditMovieComponent,
     ModalComponent,
-    TestingComponent,
     ToIntPipe,
     ToRuntimeStringPipe,
     TitlePipe,
-    MovieFormModalComponent,
     TitleStringifyPipe,
     AlertModalComponent
   ],

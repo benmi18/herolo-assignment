@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { ModalService } from './../../services/modal.service';
 import { MovieService } from './../../services/movie.service';
 import { ToRuntimeStringPipe } from '../../pipes/to-runtime-string.pipe';
-import { ToIntPipe } from '../../pipes/to-int.pipe';
 import { TitleStringifyPipe } from '../../pipes/title-stringify.pipe';
 import { Movie } from './../../models/movie.model';
 import { Modal } from '../../models/modal.model';
@@ -21,9 +20,8 @@ export class ModalComponent implements OnInit {
   modalInfo: Modal;
   form: FormGroup;
   formSubmited: boolean;
-  titles: string[];
-  // private runtimeString = new ToRuntimeStringPipe();
-  // private runtimeInt = new ToIntPipe();
+  moviesTitleAndId: { id: string; title: string }[];
+  private runtimeString = new ToRuntimeStringPipe();
   private removeSpecialChars = new TitleStringifyPipe();
 
   constructor(
@@ -32,7 +30,7 @@ export class ModalComponent implements OnInit {
     private movieService: MovieService
   ) {
     this.formSubmited = false;
-    this.titles = [];
+    this.moviesTitleAndId = [];
   }
 
   ngOnInit() {
@@ -61,7 +59,7 @@ export class ModalComponent implements OnInit {
 
     this.store.select(fromRoot.getMovies).subscribe((movies: Movie[]) => {
       movies.forEach(movie => {
-        this.titles.push(movie.title);
+        this.moviesTitleAndId.push({ id: movie.id, title: movie.title });
       });
     });
   }
@@ -95,14 +93,11 @@ export class ModalComponent implements OnInit {
     if (this.modalInfo.isNewMovie) {
       // ADD NEW MOVIE
       const cleanTitle = this.removeSpecialChars.transform(this.title.value);
+      const runtimeString = this.runtimeString.transform(this.runtime.value);
       const formData = this.form.value;
       formData.title = cleanTitle;
-      this.titles.forEach(title => {
-        // Check if title exits
-        if (title.toLocaleLowerCase() === cleanTitle.toLocaleLowerCase()) {
-          this.title.setErrors({ title: true }); // Set Title error
-        }
-      });
+      formData.runtime = runtimeString;
+      this.checkTitleExists(cleanTitle, this.modalInfo.isNewMovie);
       if (!this.title.errors) {
         // If no title error, Dispatch new movie action
         formData.id = this.movieService.genRandomId();
@@ -111,26 +106,53 @@ export class ModalComponent implements OnInit {
       }
     } else {
       // EDIT MOVIE
-      const updatedMovie: Movie = {
-        id: this.modalInfo.movieId,
-        title: this.title.value,
-        year: this.year.value,
-        runtime: this.runtime.value,
-        genre: this.genre.value,
-        director: this.director.value
-      };
-      this.store.dispatch(
-        new movieActions.EditMovie({
-          id: this.modalInfo.movieId,
-          movie: updatedMovie
-        })
+      // Check if title exits
+      this.checkTitleExists(
+        this.title.value,
+        this.modalInfo.isNewMovie,
+        this.modalInfo.movieId
       );
-      this.closeModal();
+      if (!this.title.errors) {
+        const runtimeString = this.runtimeString.transform(this.runtime.value);
+        const updatedMovie: Movie = {
+          id: this.modalInfo.movieId,
+          title: this.title.value,
+          year: this.year.value,
+          runtime: runtimeString,
+          genre: this.genre.value,
+          director: this.director.value
+        };
+        this.store.dispatch(
+          new movieActions.EditMovie({
+            id: this.modalInfo.movieId,
+            movie: updatedMovie
+          })
+        );
+        this.closeModal();
+      }
+    }
+  }
+
+  checkTitleExists(title: string, isNewMovie: boolean, id?: string) {
+    for (let i = 0; i < this.moviesTitleAndId.length; i++) {
+      if (
+        this.moviesTitleAndId[i].title.toLocaleLowerCase() ===
+        title.toLocaleLowerCase()
+      ) {
+        if (isNewMovie) {
+          this.title.setErrors({ title: true });
+          break;
+        }
+
+        if (this.moviesTitleAndId[i].id !== id) {
+          this.title.setErrors({ title: true });
+          break;
+        }
+      }
     }
   }
 
   closeModal() {
-    console.log(this.form);
     this.formSubmited = false;
     document.getElementById('close-modal').click();
     this.modalService.resetModalInfo();
